@@ -8,13 +8,16 @@ polytope <- GenCube(100, 'H')
 label <- function(x) {
     c('CDHR', 'RDHR', 'Ball walk')[x+1]
 }
+
 for (step in c(1, 10, 100, 200, 400, 800)) {
     cdhr_walk <- sample_points(polytope, 100, 'uniform', 'CDHR', walk_step = step)
     rdhr_walk <- sample_points(polytope, 100, 'uniform', 'RDHR', walk_step = step)
     ball_walk <- sample_points(polytope, 100, 'uniform', 'BW', walk_step = step)
     
     # Project points onto the plane and bind points together for plotting
-    walks <- data.frame(rbind(cbind(cdhr_walk[,1:2], 0), cbind(rdhr_walk[,1:2], 1), cbind(ball_walk[,1:2], 2)))
+    walks <- data.frame(rbind(cbind(cdhr_walk[,1:2], 0),
+                              cbind(rdhr_walk[,1:2], 1),
+                              cbind(ball_walk[,1:2], 2)))
     walks <- data.frame(transform(walks, X3 = label(X3)))
     
     # Plot the projections
