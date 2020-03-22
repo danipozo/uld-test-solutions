@@ -4,7 +4,9 @@
 #include <algorithm>
 #include <vector>
 
-
+/* Includes needed to use VolEsti primitives.
+ */
+// Eigen
 #include "Core"
 #include "cartesian_geom/cartesian_kernel.h"
 #include <chrono>
@@ -19,6 +21,8 @@ typedef point<Cartesian<double>> Point;
 
 /* Ball walk with the uniform target distribution.
  *
+ * Runs ball_walk implemented in samplers.h for a number
+ * of steps.
  */
 template<class Polytope>
 Point ball_walk_uniform(const Polytope& poly, double delta, const Point& start, size_t steps = 100) {
@@ -74,6 +78,7 @@ int main() {
     samples[i] = ball_walk(oracle, poly, 0.01, Point(2), 200);
   }
 
+  // Print samples for plotting
   for(auto& s : samples) {
     std::cout << s[0] << " " << s[1] << std::endl;
   }
