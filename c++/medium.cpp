@@ -19,21 +19,6 @@
 
 typedef point<Cartesian<double>> Point;
 
-/* Ball walk with the uniform target distribution.
- *
- * Runs ball_walk implemented in samplers.h for a number
- * of steps.
- */
-template<class Polytope>
-Point ball_walk_uniform(const Polytope& poly, double delta, const Point& start, size_t steps = 100) {
-  Point p = start;
-  for(size_t i = 0; i < steps; i++) {
-    ball_walk<std::mt19937>(p, poly, delta);
-  }
-
-  return p;
-}
-
 
 /* Ball walk for log-concave target distribution given by f.
  * 
@@ -47,7 +32,7 @@ Point ball_walk(F f, const Polytope& poly, double delta, const Point& start, siz
   
   Point x = start;
   for(size_t i = 0; i < steps; i++) {
-    Point y = ball_walk_uniform(poly, delta, x);
+    Point y = get_point_in_Dsphere<std::mt19937, Point>(x.dimension(), delta) + x;
 
     double prob = std::min(1.0, std::exp(f(x) - f(y)));
     if(dis(gen) < prob) {
