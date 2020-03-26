@@ -10,9 +10,9 @@ label <- function(x) {
 }
 
 for (step in c(1, 10, 100, 200, 400, 800)) {
-    cdhr_walk <- sample_points(polytope, 100, 'uniform', 'CDHR', walk_step = step)
-    rdhr_walk <- sample_points(polytope, 100, 'uniform', 'RDHR', walk_step = step)
-    ball_walk <- sample_points(polytope, 100, 'uniform', 'BW', walk_step = step)
+    cdhr_walk <- t(sample_points(polytope, 100, 'uniform', 'CDHR', walk_step = step))
+    rdhr_walk <- t(sample_points(polytope, 100, 'uniform', 'RDHR', walk_step = step))
+    ball_walk <- t(sample_points(polytope, 100, 'uniform', 'BW', walk_step = step))
     
     # Project points onto the plane and bind points together for plotting
     walks <- data.frame(rbind(cbind(cdhr_walk[,1:2], 0),
