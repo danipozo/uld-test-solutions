@@ -34,7 +34,7 @@ Point ball_walk(F f, const Polytope& poly, double delta, const Point& start, siz
   for(size_t i = 0; i < steps; i++) {
     Point y = get_point_in_Dsphere<std::mt19937, Point>(x.dimension(), delta) + x;
 
-    double prob = std::min(1.0, std::exp(f(x) - f(y)));
+    double prob = std::exp(f(x) - f(y));
     if(dis(gen) < prob && poly.is_in(y) == -1) {
       x = y;
     }
